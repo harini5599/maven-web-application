@@ -1,4 +1,5 @@
 node{
+  properties([buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5')), pipelineTriggers([pollSCM('* * * * *')])])
 def mavenHome= tool name: 'maven3.9.1'
 stage('checkoutCode'){
 git branch: 'development', credentialsId: '56df1e26-60c4-4c8d-b1fa-870b362b15e3', url: 'https://github.com/harini5599/maven-web-application.git'
