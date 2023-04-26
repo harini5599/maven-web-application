@@ -13,7 +13,7 @@ stage('UPloadArtifactsIntoNexus'){
 sh "${mavenHome}/bin/mvn deploy"
 }
 stage('DeployAppintoTomcat'){
-sshagent(['tomcat123']) {
+sshagent([' /etc/ssh/sshd_config']) {
    sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.40.205:/opt/apache-tomcat-9.0.73/webapps"
 }
 }
