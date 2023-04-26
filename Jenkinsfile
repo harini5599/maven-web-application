@@ -7,14 +7,17 @@ stage('Build'){
 sh "${mavenHome}/bin/mvn clean package"
 }
 stage('ExecuteSonarQueReport'){
-sh "${mavenHome}/bin/mvn sonar:sonar"
+sh "${mavenHome}/bin/mvn clean sonar:sonar"
 }
 stage('UPloadArtifactsIntoNexus'){
 sh "${mavenHome}/bin/mvn deploy"
+
 }
-stage('DeployAppintoTomcat'){
+
+stage ('DeployAppintoTomcat'){
 sshagent([''tomcat12345']) {
-  sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@13.127.2.211:/opt/apache-tomcat-9.0.73/webapps"
+sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@13.127.2.211:/opt/apache-tomcat-9.0.73/webapps"
+
 }
 }
 
